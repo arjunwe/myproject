@@ -6,10 +6,31 @@
 </head>
 <body>
   <h2>Chat Agent for Andhra University</h2>
+  <input type="text" id="userQuery" placeholder="Search anything..." />
+  <button onclick="searchQuery()">🔍 Search</button>
 
-  <!-- Embed the Programmable Search Engine -->
-  <script async src="https://cse.google.com/cse.js?cx=502f7373d6ff043b5"></script>
-  <div class="gcse-search"></div>
+  <div id="results"></div>
 
+  <script>
+    async function searchQuery() {
+      const query = document.getElementById('userQuery').value;
+      const apiKey = 'YOUR_API_KEY'; // <-- Replace this
+      const cx = 'YOUR_SEARCH_ENGINE_ID'; // <-- Replace this too
+
+      const response = await fetch(`https://www.googleapis.com/customsearch/v1?q=${encodeURIComponent(query)}&key=${apiKey}&cx=${cx}`);
+      const data = await response.json();
+
+      let output = '';
+      if (data.items) {
+        data.items.forEach(item => {
+          output += `<p><a href="${item.link}" target="_blank">${item.title}</a><br>${item.snippet}</p>`;
+        });
+      } else {
+        output = 'No results found.';
+      }
+
+      document.getElementById('results').innerHTML = output;
+    }
+  </script>
 </body>
 </html>
