@@ -34,16 +34,5 @@
   </script>
 </body>
 </html>
-{
-  { "question": "andhra university", "answer": "Andhra University is located in Visakhapatnam, India." },
-  { "question": "admissions", "answer": "Visit the AU admissions portal for details." }
-}
-fetch('data.json')
-  .then(response => response.json())
-  .then(data => {
-    const query = document.getElementById('searchBox').value.toLowerCase();
-    const result = data.find(item => item.question.toLowerCase().includes(query));
-    document.getElementById('result').innerText = result ? result.answer : "No results found.";
-  });
 
 
